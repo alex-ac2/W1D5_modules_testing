@@ -1,25 +1,39 @@
 // Private function
-function storeList(num) {
+function storeList() {
   let storedArray = [];
-
-  return function(num) {
+  
+  function pushToArray(num) {
     storedArray.push(num);
     return console.log("Stored " + num + " in list.");
-  };
+  }
 
+  function getList() {
+    return storedArray;
+  }
+
+  return {
+    pushToArray: pushToArray,
+    getList: getList
+  };
 }
 
-var addingNumber = storeList();
+// Invoking function to create instance 
+var numberAccess = storeList();
 
+// Exported module
 module.exports = {
 
-  addNumber: (x) => { 
-    console.log(x); 
-    return addingNumber(x); 
+  addNumber: (num) => { 
+    return numberAccess.pushToArray(num);
   },
 
-  getSortedList: {   }
+  getSortedList: () => {  
+    return numberAccess.getList().sort();
+  },
 
+  getStoredArray: () => {
+    return numberAccess.getList();
+  }
 
 };
 
